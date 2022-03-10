@@ -1,0 +1,238 @@
+[
+  {
+    "ParameterKey": "TemplateBucket",
+    "ParameterValue": "us-east-1a"
+  },
+
+  {
+		"ParameterKey": "AvailabilityZone1",
+    "ParameterValue": "us-east-1b"
+  },
+
+  {
+		"ParameterKey": "AvailabilityZone2",
+    "ParameterValue": "us-east-1c"
+  },
+
+  {
+		"ParameterKey": "ELBIngressPort",
+    "ParameterValue": "443"
+  },
+
+  {
+		"ParameterKey": "AppIngressPort",
+    "ParameterValue": "8443"
+  },
+
+  {
+		"ParameterKey": "KeyName",
+    "ParameterValue": "modernfi-ec2-1"
+  },
+
+  {
+		"ParameterKey": "LogRetentionInDays",
+    "ParameterValue": "90"
+  },
+
+  {
+		"ParameterKey": "MFA",
+    "ParameterValue": "false"
+  },
+
+  {
+		"ParameterKey": "LoadBalancerAlarmEvaluationPeriods",
+    "ParameterValue": "2"
+  },
+
+  {
+		"ParameterKey": "LoadBalancerAlarmEvaluationPeriodSeconds",
+    "ParameterValue": "300"
+  },
+
+  {
+		"ParameterKey": "LoadBalancerLatencySeconds",
+    "ParameterValue": "2"
+  },
+
+  {
+		"ParameterKey": "EnableLBAlarm",
+    "ParameterValue": "false"
+  },
+
+  {
+		"ParameterKey": "AppProtocol",
+    "ParameterValue": "HTTPS"
+  },
+
+  {
+		"ParameterKey": "SSLCertificateArn",
+    "ParameterValue": ""
+  },
+
+  {
+		"ParameterKey": "HealthCheckPath",
+    "ParameterValue": "/"
+  },
+
+  {
+		"ParameterKey": "GitSourceRepo",
+    "ParameterValue": ""
+  },
+
+  {
+		"ParameterKey": "GitBranch",
+    "ParameterValue": "master"
+  },
+
+  {
+		"ParameterKey": "GitHubToken",
+    "ParameterValue": ""
+  },
+
+  {
+		"ParameterKey": "GitHubUser",
+    "ParameterValue": ""
+  },
+
+  {
+		"ParameterKey": "CodeBuildDockerImage",
+    "ParameterValue": "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+  },
+
+  {
+		"ParameterKey": "SeedDockerImage",
+    "ParameterValue": ""
+  },
+
+  {
+		"ParameterKey": "DefaultContainerCpu",
+    "ParameterValue": "256"
+  },
+
+  {
+		"ParameterKey": "DefaultContainerMemory",
+    "ParameterValue": "512"
+  },
+
+  {
+		"ParameterKey": "DefaultServiceScaleEvaluationPeriods",
+    "ParameterValue": "2"
+  },
+
+  {
+		"ParameterKey": "DefaultServiceCpuScaleOutThreshold",
+    "ParameterValue": "50"
+  },
+
+  {
+		"ParameterKey": "DefaultServiceCpuScaleInThreshold",
+    "ParameterValue": "25"
+  },
+
+  {
+		"ParameterKey": "DefaultTaskMinContainerCount",
+    "ParameterValue": "1"
+  },
+
+  {
+		"ParameterKey": "DefaultTaskMaxContainerCount",
+    "ParameterValue": "2"
+  },
+
+  {
+		"ParameterKey": "ContainerLogRetentionInDays",
+    "ParameterValue": "7"
+  },
+
+  {
+		"ParameterKey": "MaxTaggedContainerImagesToRetain",
+    "ParameterValue": "20"
+  },
+
+  {
+		"ParameterKey": "DaysToRetainUntaggedContainerImages",
+    "ParameterValue": "7"
+  },
+
+  {
+		"ParameterKey": "EnvironmentName",
+    "ParameterValue": "dev"
+  },
+
+  {
+		"ParameterKey": "DatabaseUser",
+    "ParameterValue": "app"
+  },
+
+  {
+		"ParameterKey": "DatabasePassword",
+    "ParameterValue": "23823-233H2^10-23"
+  },
+
+  {
+		"ParameterKey": "DatabaseName",
+    "ParameterValue": "modernfi"
+  },
+
+  {
+		"ParameterKey": "DatabaseEngine",
+    "ParameterValue": "aurora-postgresql"
+  },
+
+  {
+		"ParameterKey": "EncryptionAtRest",
+    "ParameterValue": "true"
+  },
+
+  {
+		"ParameterKey": "DatabaseInstanceClass",
+    "ParameterValue": "db.t2.small"
+  },
+
+  {
+		"ParameterKey": "DatabaseEnableAlarms",
+    "ParameterValue": "true"
+  },
+
+  {
+		"ParameterKey": "DatabaseEnhancedMonitoring",
+    "ParameterValue": "true"
+  },
+
+  {
+		"ParameterKey": "DatabaseAlarmMaxCpuPercent",
+    "ParameterValue": "50"
+  },
+
+  {
+		"ParameterKey": "DatabaseAlarmReadLatencyMaxSeconds",
+    "ParameterValue": "3"
+  },
+
+  {
+		"ParameterKey": "DatabaseAlarmWriteLatencyMaxSeconds",
+    "ParameterValue": "1"
+  },
+
+  {
+		"ParameterKey": "DatabaseAlarmEvaluationPeriods",
+    "ParameterValue": "2"
+  },
+
+  {
+		"ParameterKey": "DatabaseAlarmEvaluationPeriodSeconds",
+    "ParameterValue": "60"
+  },
+
+  {
+		"ParameterKey": "DatabaseAlarmEvaluationPeriodSeconds",
+    "ParameterValue": "60"
+  }
+
+]
+
+
+
+
+
+
