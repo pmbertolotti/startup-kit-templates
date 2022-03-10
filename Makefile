@@ -7,9 +7,9 @@ ACCOUNT_ID := $(shell aws sts get-caller-identity --profile $(PROFILE) --query '
 .PHONY: create-stack
 create-stack:
 	@aws cloudformation create-stack \
-  --stack-name ky-ingestion-poc-$(ENV_NAME) \
-  --region $(REGION) \
-  --capabilities CAPABILITY_NAMED_IAM \
-  --template-url https://s3.amazonaws.com/cfn-templates-229787120342/vpc-bastion-fargate-rds.cfn.yml
-	--parameters params.json
+	--stack-name app-$(ENV_NAME) \
+	--region $(REGION) \
+	--capabilities CAPABILITY_NAMED_IAM \
+	--template-url https://s3.amazonaws.com/cfn-templates-229787120342/vpc-bastion-fargate-rds.cfn.yml \
+	--parameters file://params.json
 
