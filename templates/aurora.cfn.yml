@@ -226,8 +226,6 @@ Resources:
         Value: !Ref AWS::StackName
     DependsOn: AuroraCluster
 
-      aurora-postgresql13
-
   AuroraInstance1:
     Type: AWS::RDS::DBInstance
     Condition: IsProd
