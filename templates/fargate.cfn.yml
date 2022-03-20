@@ -309,14 +309,11 @@ Resources:
             ---
             version: 0.2
             phases:
-              install:
-                commands:
-                  - apt-get update && apt-get -y install python-pip && pip install --upgrade python && pip install --upgrade awscli
               pre_build:
                   commands:
                   - printenv
                   - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$ENVIRONMENT_NAME.$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-                  - $(aws ecr get-login --no-include-email)
+                  - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
               build:
                 commands:
                   - docker build --tag $REPOSITORY_URI:$TAG .
@@ -326,8 +323,9 @@ Resources:
                   - printf '[{"name":"${ServiceName}","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > build.json
             artifacts:
               files: build.json
-          - ServiceName: !Ref GitSourceRepo
+          - ServiceName: !Sub app-${AWS::StackName}
       Environment:
+        PrivilegedMode: true
         ComputeType: BUILD_GENERAL1_SMALL
         Type: LINUX_CONTAINER
         Image: !Ref CodeBuildDockerImage
@@ -340,6 +338,8 @@ Resources:
             Value: !Ref GitSourceRepo
           - Name: REPOSITORY_BRANCH
             Value: !Ref GitBranch
+          - Name: AWS_ACCOUNT_ID
+            Value: !Ref AWS::AccountId
       Name: !Ref AWS::StackName
       ServiceRole: !Ref CodeBuildServiceRole
       VpcConfig:
@@ -677,7 +677,7 @@ Resources:
       TaskRoleArn: !GetAtt DefaultTaskRole.Arn
       ExecutionRoleArn: !GetAtt DefaultTaskExecutionRole.Arn
       ContainerDefinitions:
-        - Name: !Ref GitSourceRepo
+        - Name: !Sub app-${AWS::StackName}
           Image: !Ref SeedDockerImage
           Essential: true
           PortMappings:
@@ -718,7 +718,7 @@ Resources:
       LaunchType: FARGATE
       TaskDefinition: !Ref DefaultFargateTaskDefinition
       LoadBalancers:
-        - ContainerName: !Ref GitSourceRepo
+        - ContainerName: !Sub app-${AWS::StackName}
           ContainerPort:
             Fn::ImportValue: !Sub ${NetworkStackName}-AppIngressPort
           TargetGroupArn: !Ref DefaultTargetGroup

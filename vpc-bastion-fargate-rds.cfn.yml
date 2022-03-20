@@ -311,6 +311,7 @@ Parameters:
       - db.t2.micro
       - db.t2.small
       - db.t2.medium
+      - db.t3.medium
       - db.t2.large
       - db.t2.xlarge
       - db.t2.2xlarge
@@ -604,16 +605,16 @@ Resources:
         AppIngressPort: !Ref AppIngressPort
         SingleNatGateway: !If [ IsProd, false, true ]
 
-  BastionStack:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub https://s3.amazonaws.com/${TemplateBucket}/templates/bastion.cfn.yml
-      Parameters:
-        NetworkStackName: !GetAtt VpcStack.Outputs.Name
-        KeyName: !Ref KeyName
-        LogRetentionInDays: !Ref LogRetentionInDays
-        MFA: !Ref MFA
-    DependsOn: VpcStack
+  # BastionStack:
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: !Sub https://s3.amazonaws.com/${TemplateBucket}/templates/bastion.cfn.yml
+  #     Parameters:
+  #       NetworkStackName: !GetAtt VpcStack.Outputs.Name
+  #       KeyName: !Ref KeyName
+  #       LogRetentionInDays: !Ref LogRetentionInDays
+  #       MFA: !Ref MFA
+  #   DependsOn: VpcStack
 
   AuroraStack:
     Type: AWS::CloudFormation::Stack
@@ -638,39 +639,13 @@ Resources:
         DatabaseAlarmEvaluationPeriodSeconds: !Ref DatabaseAlarmEvaluationPeriodSeconds
     DependsOn: VpcStack
 
-  RdsStack:
-    Type: AWS::CloudFormation::Stack
-    Condition: IsNotAurora
-    Properties:
-      TemplateURL: !Sub https://s3.amazonaws.com/${TemplateBucket}/templates/db.cfn.yml
-      Parameters:
-        NetworkStackName: !GetAtt VpcStack.Outputs.Name
-        EnvironmentName: !Ref EnvironmentName
-        DatabaseEngine: !Ref DatabaseEngine
-        DatabaseInstanceClass: !Ref DatabaseInstanceClass
-        DatabaseUser: !Ref DatabaseUser
-        DatabasePassword: !Ref DatabasePassword
-        DatabaseName: !Ref DatabaseName
-        EncryptionAtRest: !Ref EncryptionAtRest
-        DatabaseSize: !Ref DatabaseSize
-        EnableAlarms: !Ref DatabaseEnableAlarms
-        EnhancedMonitoring: !Ref DatabaseEnhancedMonitoring
-        DatabaseAlarmMaxCpuPercent: !Ref DatabaseAlarmMaxCpuPercent
-        DatabaseAlarmReadLatencyMaxSeconds: !Ref DatabaseAlarmReadLatencyMaxSeconds
-        DatabaseAlarmWriteLatencyMaxSeconds: !Ref DatabaseAlarmWriteLatencyMaxSeconds
-        DatabaseAlarmEvaluationPeriods: !Ref DatabaseAlarmEvaluationPeriods
-        DatabaseAlarmEvaluationPeriodSeconds: !Ref DatabaseAlarmEvaluationPeriodSeconds
-        DatabaseAlarmMinFreeSpaceInBytes: !Ref DatabaseAlarmMinFreeSpaceInBytes
-        DatabaseAlarmSwapUsageInBytes: !Ref DatabaseAlarmSwapUsageInBytes
-    DependsOn: VpcStack
-
   FargateStack:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: !Sub https://s3.amazonaws.com/${TemplateBucket}/templates/fargate.cfn.yml
       Parameters:
         NetworkStackName: !GetAtt VpcStack.Outputs.Name
-        DatabaseStackName:  !If [ IsAurora, !GetAtt AuroraStack.Outputs.Name, !GetAtt RdsStack.Outputs.Name ]
+        DatabaseStackName:  !GetAtt AuroraStack.Outputs.Name
         HostedZoneName: !Ref HostedZoneName
         LoadBalancerDomainName: !Ref LoadBalancerDomainName
         AppProtocol: !Ref AppProtocol
@@ -705,10 +680,10 @@ Outputs:
     Export:
       Name: !Sub ${AWS::StackName}-VpcStackName
 
-  BastionStackName:
-    Value: !GetAtt BastionStack.Outputs.Name
-    Export:
-      Name: !Sub ${AWS::StackName}-BastionStackName
+  # BastionStackName:
+  #   Value: !GetAtt BastionStack.Outputs.Name
+  #   Export:
+  #     Name: !Sub ${AWS::StackName}-BastionStackName
 
   FargateStackName:
     Value: !GetAtt FargateStack.Outputs.Name
@@ -720,10 +695,3 @@ Outputs:
     Condition: IsAurora
     Export:
       Name: !Sub ${AWS::StackName}-DatabaseStackName
-
-  RdsStackName:
-    Value: !GetAtt RdsStack.Outputs.Name
-    Condition: IsNotAurora
-    Export:
-      Name: !Sub ${AWS::StackName}-DatabaseStackName
-

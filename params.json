@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "TemplateBucket",
-    "ParameterValue": "us-east-1a"
+    "ParameterValue": "cfn-templates-229787120342"
   },
 
   {
@@ -21,7 +21,7 @@
 
   {
 		"ParameterKey": "AppIngressPort",
-    "ParameterValue": "8443"
+    "ParameterValue": "80"
   },
 
   {
@@ -61,12 +61,12 @@
 
   {
 		"ParameterKey": "AppProtocol",
-    "ParameterValue": "HTTPS"
+    "ParameterValue": "HTTP"
   },
 
   {
 		"ParameterKey": "SSLCertificateArn",
-    "ParameterValue": ""
+    "ParameterValue": "arn:aws:acm:us-east-1:229787120342:certificate/d01e95cd-5548-4d72-a806-13030b5ddb19"
   },
 
   {
@@ -76,7 +76,7 @@
 
   {
 		"ParameterKey": "GitSourceRepo",
-    "ParameterValue": ""
+    "ParameterValue": "hello-world-golang"
   },
 
   {
@@ -86,22 +86,22 @@
 
   {
 		"ParameterKey": "GitHubToken",
-    "ParameterValue": ""
+    "ParameterValue": "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"
   },
 
   {
 		"ParameterKey": "GitHubUser",
-    "ParameterValue": ""
+    "ParameterValue": "pmbertolotti"
   },
 
   {
 		"ParameterKey": "CodeBuildDockerImage",
-    "ParameterValue": "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+    "ParameterValue": "aws/codebuild/standard:5.0"
   },
 
   {
 		"ParameterKey": "SeedDockerImage",
-    "ParameterValue": ""
+    "ParameterValue": "public.ecr.aws/nginx/nginx:latest"
   },
 
   {
@@ -161,12 +161,12 @@
 
   {
 		"ParameterKey": "DatabaseUser",
-    "ParameterValue": "app"
+    "ParameterValue": "mfiapp"
   },
 
   {
 		"ParameterKey": "DatabasePassword",
-    "ParameterValue": "23823-233H2^10-23"
+    "ParameterValue": "23823233H21023"
   },
 
   {
@@ -186,7 +186,7 @@
 
   {
 		"ParameterKey": "DatabaseInstanceClass",
-    "ParameterValue": "db.t2.small"
+    "ParameterValue": "db.t3.medium"
   },
 
   {
